@@ -1,0 +1,40 @@
+scalar Date
+scalar Long
+
+#根类型
+schema {
+    # 查询
+    query: Query
+}
+
+# 查询
+type Query{
+    findTDblinkInfoById(id:Int!):TDblinkInfo
+    findTDblinkAll:TableResult
+    findTDblinkPage(page:Int!,size:Int!):PageResult
+}
+
+type TDblinkInfo {
+    id:Int
+    linkDbName:String
+    loginAccount:String
+    loginPwd:String
+    linkDbIp:String
+    linkDbPort:String
+}
+
+type Pagination {
+    current: Long
+    pageSize: Long
+    total: Long
+    totalPages: Long
+}
+
+type TableResult{
+    list:[TDblinkInfo]
+}
+
+type PageResult{
+    list:[TDblinkInfo]
+    pagination:Pagination
+}

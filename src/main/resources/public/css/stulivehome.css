@@ -1,0 +1,191 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+body{
+    position: relative;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+.header{
+    width: 100%;
+    height: 50px;
+    background-image: url("../images/008.png");
+    background-size: 100% 100%;
+}
+.title{
+    height: 50px;
+    font-weight: 800;
+    line-height: 50px;
+    font-size: 16px;
+    color: white;
+    padding-left: 14px;
+}
+.close{
+    margin-top: 13px;
+    margin-right: 20px;
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+.people{
+    margin-right: 30px;
+    line-height: 50px;
+    font-size: 0;
+}
+.people span{
+    font-size: 12px;
+    color: white;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+.people img{
+    width: 13px;
+    vertical-align: middle;
+}
+
+.main-content{
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.main-video{
+    width: 70%;
+    /*height: 90%;*/
+    background: #03A9F4;
+    margin-left: 14px;
+    margin-top: 10px;
+}
+.mini-video-box{
+    width: 23%;
+    height: 90%;
+    margin-left: 14px;
+    margin-top: 10px;
+}
+
+.mini-video{
+    width: 100%;
+    /*height: 50%;*/
+    background: #03A9F4;
+}
+.this-people{
+    margin-top: 10px;
+    height: 20px;
+    line-height: 20px;
+}
+.this-people img{
+    width: 13px;
+    vertical-align: middle;
+}
+.this-people span{
+    vertical-align: middle;
+    font-size: 12px;
+}
+.btn{
+    font-size:0;
+}
+.btn *{
+    vertical-align: middle;
+    font-size: 12px;
+    color: white;
+    font-weight: 800;
+}
+.btn img{
+    width: 14px;
+    padding-right: 4px;
+}
+.btn1{
+    height: 36px;
+    line-height: 36px;
+    border-radius: 36px;
+    background: #F58410;
+    text-align: center;
+    margin-top: 14px;
+}
+.btn2{
+    margin-top: 35px;
+    height: 26px;
+    line-height: 26px;
+    border-radius: 26px;
+    background: #74C543;
+    text-align: center;
+}
+.main-big-video{
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    top: 90px;
+    background: #03A9F4;
+}
+.table-btn{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.4);
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.table-btn img{
+    width: 24px;
+    height: 24px;
+    margin: 3px;
+}
+.modal-box{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.7);
+    display: none;
+}
+.modal-content{
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    margin: auto;
+    background: white;
+    border-radius: 5px;
+}
+.modal-title{
+    font-size: 12px;
+    color: #666666;
+    padding-top: 22px;
+    padding-left: 20px;
+}
+.modal-title span{
+    font-size: 16px;
+}
+.modal-close{
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    background-image: url("../images/modal-close.png");
+    background-size: 100%;
+}
+.modal-table{
+    width: 95%;
+    margin: 10px auto;
+    display: block;
+}
+
+.modal-table *{
+    line-height:26px !important
+}

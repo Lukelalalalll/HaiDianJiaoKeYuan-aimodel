@@ -1,0 +1,300 @@
+#系统中使用到的原生sql查询
+nativesql: 
+  sqls:
+    querySessionModelContextBySessionModelId: |
+        select * from t_ai_user_session_model_context t where t.session_model_id = :sessionModelId ORDER BY t.create_time ASC
+    queryZntList:
+      SELECT *, ( CASE WHEN t.review_status = 0 THEN '待审核' WHEN t.review_status = 1 THEN '审核通过' WHEN t.review_status = 2 THEN '审核不通' ELSE '' END ) review_status_name
+      , ( CASE WHEN t.publish_status = 0 THEN '待发布' WHEN t.publish_status = 1 THEN '发布中' WHEN t.publish_status = 2 THEN '撤销发布' ELSE '' END ) publish_status_name
+      , ( CASE WHEN t.publish_range = 0 THEN '个人可见' WHEN t.publish_range = 1 THEN '所有人可见'ELSE '' END ) publish_range_name  from t_ai_sys_prompt t 
+      where t.is_del=0 and t.sys_prompt_type=2 
+      <#if znt?has_content>
+      and t.`name` like %:znt%
+      </#if>
+      <#if busType?has_content>
+      and t.bus_type=:busType
+      </#if>
+      <#if publishStatus?has_content>
+      and t.publish_status=:publishStatus
+      </#if>
+      <#if accessUser?has_content>
+      and t.publish_status=1 and (t.publish_range=1 or t.create_user=:accessUser) and t.create_user!=:accessUser
+      </#if>
+      <#if reviewStatus?has_content>
+      and t.review_status=:reviewStatus
+      </#if>
+      <#if createUser?has_content>
+      and t.create_user=:createUser
+      </#if>
+      ORDER BY t.create_time desc
+    queryZntList_count:
+      SELECT count(*) from t_ai_sys_prompt t where t.is_del=0 and t.sys_prompt_type=2
+      <#if znt?has_content>
+      and t.`name` like %:znt%
+      </#if>
+      <#if busType?has_content>
+      and t.bus_type=:busType
+      </#if>
+      <#if publishStatus?has_content>
+      and t.publish_status=:publishStatus
+      </#if>
+      <#if accessUser?has_content>
+      and t.publish_status=1 and (t.publish_range=1 or t.create_user=:accessUser) and t.create_user!=:accessUser
+      </#if>
+      <#if reviewStatus?has_content>
+      and t.review_status=:reviewStatus
+      </#if>
+      <#if createUser?has_content>
+      and t.create_user=:createUser
+      </#if>
+    queryTscList:
+      SELECT * from t_ai_user_prompt t where t.is_del=0 and t.publish_status =1
+      <#if tsc?has_content>
+      and t.`name` like %:tsc%
+      </#if>
+      <#if busType?has_content>
+      and t.bus_type=:busType
+      </#if>
+      ORDER BY order_no ASC
+    queryTscList_count:
+      SELECT count(*) from t_ai_user_prompt t where t.is_del=0 and t.publish_status =1
+      <#if tsc?has_content>
+      and t.`name` like %:tsc%
+      </#if>
+      <#if busType?has_content>
+      and t.bus_type=:busType
+      </#if>
+    queryUsrTypeTjxxList: |
+      select
+      count(*) question_nums
+      <#if userType?has_content>
+      ,DATE_FORMAT(t.create_time, '%Y-%m') tjrq
+      </#if>
+      <#if !userType?has_content>
+      ,t4.user_type
+      </#if>
+      FROM
+      t_ai_user_session_model_context t
+      INNER JOIN (
+      SELECT
+      t.id,t.session_id
+      FROM
+      t_ai_user_session_model t
+      LEFT JOIN t_ai_user_session t1 ON t.session_id = t1.id
+      GROUP BY
+      t1.id
+      ) tv ON t.session_model_id = tv.id
+      INNER JOIN t_ai_user_session t4 on tv.session_id=t4.id
+      where 1=1
+      <#if year?has_content>
+      and YEAR(t.create_time) =:year
+      </#if>
+      <#if userType?has_content>
+      and t4.user_type=:userType
+      </#if>
+      <#if userType?has_content>
+      GROUP BY DATE_FORMAT(t.create_time, '%Y-%m')
+      </#if>
+      <#if !userType?has_content>
+      GROUP BY t4.user_type
+      </#if>
+    queryTwxqxxList: |
+      SELECT
+      	t4.ch_name,count(*) question_nums
+      FROM
+      	t_ai_user_session_model_context t
+      INNER JOIN (
+      	SELECT
+      		t.id,t.session_id
+      	FROM
+      		t_ai_user_session_model t
+      	LEFT JOIN t_ai_user_session t1 ON t.session_id = t1.id
+      	GROUP BY
+      		t1.id
+      ) tv ON t.session_model_id = tv.id
+      INNER JOIN t_ai_user_session t4 on tv.session_id=t4.id
+      where 1=1
+      <#if startDate?has_content>
+      and t.create_time BETWEEN :startDate and :endDate
+      </#if>
+      <#if userType?has_content>
+      and t4.user_type=:userType
+      </#if>
+      GROUP BY t4.user_id
+    queryTwxqxxList_count: |
+      select count(*) from (
+      SELECT
+      	t4.ch_name,count(*) question_nums
+      FROM
+      	t_ai_user_session_model_context t
+      INNER JOIN (
+      	SELECT
+      		t.id,t.session_id
+      	FROM
+      		t_ai_user_session_model t
+      	LEFT JOIN t_ai_user_session t1 ON t.session_id = t1.id
+      	GROUP BY
+      		t1.id
+      ) tv ON t.session_model_id = tv.id
+      INNER JOIN t_ai_user_session t4 on tv.session_id=t4.id
+      where 1=1
+      <#if startDate?has_content>
+      and t.create_time BETWEEN :startDate and :endDate
+      </#if>
+      <#if userType?has_content>
+      and t4.user_type=:userType
+      </#if>
+      GROUP BY t4.user_id) tv
+    queryHotTopListForZnt: |
+      SELECT t1.*,COUNT(*)  question_nums from t_ai_user_session t 
+      LEFT JOIN t_ai_sys_prompt t1 on t.sys_prompt_id=t1.id 
+      where t.sys_prompt_id is not NULL and t1.sys_prompt_type=2
+      <#if userType?has_content>
+      and t.user_type=:userType
+      </#if>
+      GROUP BY t.sys_prompt_id ORDER BY question_nums DESC LIMIT :topNum
+    queryHotTopListForQuestion: |
+      SELECT t.`key_word`,COUNT(*) question_nums from t_ai_user_session_model_context_keyword t 
+      INNER JOIN t_ai_user_session_model_context t1 on t.session_context_id=t1.id 
+      INNER JOIN t_ai_user_session_model t2 on t1.session_model_id=t2.id 
+      INNER JOIN t_ai_user_session t3 on t2.session_id=t3.id where 1=1
+      <#if userType?has_content>
+      and t3.user_type=:userType
+      </#if>
+      GROUP BY t.`key_word`  ORDER BY question_nums DESC LIMIT :topNum
+    queryWarnWordsContextList: |
+      SELECT t4.ch_name,t4.user_name,t1.words warn_words,t2.user_in twnr,t2.create_time twsj
+      from t_ai_warn_words_context_ref t1
+      INNER JOIN t_ai_user_session_model_context t2 on t1.context_id=t2.id
+      INNER JOIN t_ai_user_session_model t3 on t2.session_model_id=t3.id
+      INNER JOIN t_ai_user_session t4 on t3.session_id=t4.id
+      where 1=1
+      <#if startTime?has_content>
+      and t2.create_time BETWEEN :startTime and :endTime
+      </#if>
+      <#if queryStr?has_content>
+      and (t1.words like %:queryStr% or t4.ch_name like %:queryStr2%)
+      </#if>
+    queryWarnWordsContextList_count: |
+      select count(*) from (SELECT t4.ch_name,t4.user_name,t1.words warn_words,t2.user_in twnr,t2.create_time twsj
+      from t_ai_warn_words_context_ref t1
+      INNER JOIN t_ai_user_session_model_context t2 on t1.context_id=t2.id
+      INNER JOIN t_ai_user_session_model t3 on t2.session_model_id=t3.id
+      INNER JOIN t_ai_user_session t4 on t3.session_id=t4.id
+      where 1=1
+      <#if startTime?has_content>
+      and t2.create_time BETWEEN :startTime and :endTime
+      </#if>
+      <#if queryStr?has_content>
+      and (t1.words like %:queryStr% or t4.ch_name like %:queryStr2%)
+      </#if>) tv
+    countContextBySysPromptId: |
+      SELECT COUNT(t.id) twcs from t_ai_user_session_model_context t 
+      INNER JOIN t_ai_user_session_model t1 on t.session_model_id=t1.id
+      INNER JOIN t_ai_user_session t2 on t1.session_id=t2.id
+      where t2.sys_prompt_id=:sysPromptId
+    queryZskList: |
+      SELECT * FROM t_ai_attachment t1
+      WHERE t1.is_del = 0
+      <#if zntId?has_content>
+      AND t1.znt_id =:zntId
+      </#if>
+    queryZskList_count: |
+      SELECT count(1) FROM t_ai_attachment t1
+      WHERE t1.is_del = 0
+      <#if zntId?has_content>
+      AND t1.znt_id =:zntId
+      </#if>
+    queryUserAiSession: |
+      SELECT t.* from t_ai_user_session t where  t.user_id=:userId and t.is_del=:isDel
+      <#if sysPromptIds?has_content>
+       and t.sys_prompt_id in (:sysPromptIds)
+      </#if>
+      <#if sysPromptId?has_content>
+       and t.sys_prompt_id=:sysPromptId
+      </#if>
+       ORDER BY t.update_time DESC
+      <#if lastNum?has_content>
+       LIMIT :lastNum
+      </#if>
+      
+    getUserModelLayoutInfoByUserTypeCodeOrderbySortAsc: |
+      SELECT l.layout_id,l.layout_name,l.layout_des,l.layout_sort,l.user_type,l.layout_icon 
+      from t_ai_model_layout l
+      where 1 =1
+      and l.is_valid = 1
+      <#if layoutId?has_content>
+      and l.layout_id =:layoutId
+      </#if>
+      <#if userTypeCode?has_content>
+      and user_type like  '%${userTypeCode}%'
+      </#if>
+      ORDER BY l.layout_sort asc;
+    getItemsByLayoutIdOrderbySort: |
+      SELECT  i.* ,c.place_holder,c.sys_prompt_id 
+      ,p.name as prompt_name,c.prompt_init_data 
+      ,c.component_status ,c.client_types ,c.other_url,c.component_des
+      from t_ai_model_layout_item i
+      left join t_ai_model_component c on i.component_id = c.component_id
+      left join t_ai_sys_prompt p on c.sys_prompt_id = p.id 
+      where 1=1
+      <#if layoutId?has_content>
+      and i.layout_id =:layoutId
+      </#if>
+      ORDER BY i.item_sort
+
+    queryFileIndexBySessionModelId: |
+      SELECT DISTINCT t1.session_context_id,t2.netdisk_id,t2.file_name,t2.attachment_type AS file_type
+      FROM t_ai_user_session_model_context_fileindex t1
+      LEFT JOIN t_ai_attachment t2 ON (t1.document_url = t2.zsk_url or t1.document_url=t2.standby_zsk_url) 
+      WHERE 1=1
+      AND t2.is_del = 0
+      <#if aiSessionId?has_content>
+      AND t1.session_id =:aiSessionId
+       </#if>
+      <#if sessionContextId?has_content>
+      AND t1.session_context_id =:sessionContextId
+       </#if>
+      ORDER BY t2.create_time DESC
+    queryBySessionModelId: |
+      select * from t_ai_user_session_model_context where session_model_id=:sessionModelId order by create_time desc 
+      <#if topN?has_content>
+          limit :topN
+      </#if>
+    queryAllAiUserSessionsPage: |
+      SELECT *,t1.component_id,t1.component_name,t1.component_status
+      FROM t_ai_user_session t
+      LEFT JOIN t_ai_model_component t1 ON t.sys_prompt_id = t1.sys_prompt_id
+      WHERE t.is_del = 0
+      <#if sysPromptIds?has_content>
+      AND t.sys_prompt_id IN (<#list sysPromptIds as ids> '${ids}' <#if ids_has_next>,</#if> </#list>)
+      </#if>
+      <#if userId?has_content>
+      AND t.user_id =:userId
+      </#if>
+      ORDER BY t.create_time DESC
+    queryAllAiUserSessionsPageCount: |
+      SELECT COUNT(1) FROM t_ai_user_session t
+      WHERE t.is_del = 0
+      <#if sysPromptIds?has_content>
+      AND t.sys_prompt_id IN (<#list sysPromptIds as ids> '${ids}' <#if ids_has_next>,</#if> </#list>)
+      </#if>
+      <#if userId?has_content>
+      AND t.user_id =:userId
+      </#if>
+      ORDER BY t.create_time DESC
+    queryUserShuzirenXingxiangList: |
+      SELECT * FROM(
+        SELECT *,0 AS od FROM t_ai_shuziren_xingxiang xx WHERE xx.is_del = 0 AND xx.publish_range = 0
+        UNION ALL
+        SELECT *,1 AS od FROM t_ai_shuziren_xingxiang xx
+        WHERE xx.is_del = 0
+        AND xx.publish_range = 1
+        <#if userId?has_content>
+        AND xx.create_user_id =:userId
+        </#if>
+      ) con ORDER BY od, create_date;
+    queryAiSysTools: |
+      SELECT * from t_ai_sys_tools t where t.sys_prompt_id=:sysPromptId and t.is_del=0 
+      UNION ALL 
+      SELECT * from t_ai_sys_tools t where t.sys_prompt_id is null and t.is_del=0 

@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>模型体验中心</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" src="https://code.bdstatic.com/npm/jquery@2.1.0/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.bdstatic.com/npm/jquery-blockui@2.7.0/jquery.blockUI.js"></script>
+    <script type="text/javascript" th:src="@{/webjars/sockjs-client/1.0.0/sockjs.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+    <!-- <script type="text/javascript" th:src="@{${ '/js/bootstrap.min.js' }}"></script>
+    <script type="text/javascript" th:src="@{${ '/js/jquery-ui.min.js' }}"></script>
+    <script type="text/javascript" th:src="@{${ '/js/bootstrap-notify.min.js' }}"></script>
+    <script type="text/javascript" th:src="@{${ '/js/recorder.js' }}"></script>
+    <script type="text/javascript" th:src="@{${ '/js/tsparticles.confetti.bundle.min.js' }}"></script>
+    <script type="text/javascript" th:src="@{${ '/js/jquery.easing.1.3.js' }}"></script> -->
+
+	<link rel="stylesheet" th:href="@{${ '/css/bootstrap.min.css' }}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{${ '/css/common.css' }}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{${ '/css/video.css?id' }}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{${ '/css/dialog.css' }}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{${ '/css/daping.css' }}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{${ '/css/aiModel.css' }}" type="text/css"/>
+</head>
+<body>
+<div class="model-wrap">
+	<div class="header-block">
+		<img th:src="@{${ '/images/aimodel-logo.png' }}" />
+		<i class="header-icon"></i>
+	</div>
+	<div class="model-main">
+		<div class="select-model">
+			<p class="text-wrap">选择模型，可选择1-6个模型快速体验或对比模型效果</p>
+			<div class="model-list"></div>
+		</div>
+		<div class="model-opbtn">
+			<button type="button" class="op-btn" id="clear_answer">
+				<i class="claermodel-icon"></i>
+				清空对话
+			</button>
+			<button type="button" class="op-btn" id="add_model">
+				<i class="addmodel-icon"></i></span>增加模型
+			</button>
+		</div>
+		<div class="answer-viwe">
+			<div class="answerModel-list"></div>
+		</div>
+		<div class="input-view">
+			<div class="text-wrap">输入你的问题开启模型体验吧</div>
+			<div class="input-send">
+				<textarea id="chatText" rows="5" type="text" placeholder="请输入"></textarea>
+				<i class="send-icon"></i>
+				<p id="null_model"></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <div class="daping-wrap">
+	<div class="header-block">
+		<img th:src="@{${ '/images/banpai-logo.png' }}" />
+		<p>8月7日  周三下午  16:43</p>
+	</div>
+	<div class="content-primary">
+		<div class="renwu-region">
+			<img th:src="@{${ '/images/renwu.png' }}" />
+			<canvas id="sz_view"></canvas>
+		</div>
+		<div class="right-sub">
+			<p class="nav-text">我是小正老师，您可以这样提问：</p>
+			<div class="message-box">
+				<span></span>
+				<p id="chatView">
+					介绍下学校历史上的奋斗大事记<br>
+					图书馆怎么走<br>
+					初一3班下午上什么课<br>
+				</p>
+				<div class="bottom-text">
+					<input type="text" name="chatText" id="chatText"/>
+					<input onclick="sendChat()" type="button" value="文字提问" class="wz-button"></input>
+				</div>
+			</div>
+		</div>
+		<div class="direction-block" style="display: none">
+			<p class="top-text">嘉宾您好</p>
+			<p class="destination-text">目 &nbsp;的 &nbsp;地：<span id="target_roomName"></span></p>
+			<p class="location-text"><span style="letter-spacing: 2px;">当前位置：</span><span id="room_name"></span></p>
+				<div class="direction-bottom">
+					<p>请沿箭头方向<br>行至<span id="target_roomNo"></span>室</p>
+					<div class="arrow-box">
+						<img th:src="@{${ '/images/right-arrow.png' }}"/>
+					</div>
+				</div>
+		</div>
+	</div>
+</div> -->
+<!-- <div class="index-bottom no-crumus" id="elMain" style="display: flex">
+    <div>
+        <label>学生荣誉</label>
+        <textarea rows="10" cols="80" name="usermessageView" id="usermessageView" >可使用mqttx工具模拟蓝牙校徽数据采集，触发提示内容显示</textarea>
+    </div>
+    <div >
+        <label>访客提示</label>
+        <textarea rows="10" cols="80" name="promptmessageView" id="promptmessageView">可使用mqttx工具模拟蓝牙校徽数据采集，触发提示内容显示</textarea>
+    </div>
+</div>
+<pre id="log"></pre> -->
+</body>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var pathurl = [[${#httpServletRequest.getContextPath()}]];
+    var restartConnCount = 10;//连接重试次数
+    var stompClient = null;
+    var stompConnected = false;
+    var msgsSentMap = new Map(); // 存放需要检查ack的已发送的消息，key是消息id，value是{retry: 剩余检查次数, msg: 发送的消息}
+    var deviceCode = [[${userId}]];//设备code
+	var modelSessionId = [[${modelSessionId}]];//设备code
+	var models=[]//模型列表
+	var selectModels=[];//选中的模型列表
+	var sendNums = -1;	//发送次数
+    
+    $(document).ready(function () {
+    	var sjList = [];
+    	let leftList = [507,769,1031,1293,1557];
+    	let len = 0;
+    	scleChange();
+    	
+		$.ajax({
+			url: pathurl+'/queryAiModelList',
+			method: 'POST',
+			data: {},
+			success: function(res){
+				models=res.data.models;
+				var modelItem = '';
+				var answerModel = '';
+				models.forEach((item,index)=>{
+					modelItem += '<div class="model-item" data-id="'+item.id+'"> <img src="'+item.iconLogo+'" /> <i class="check-icon"></i></div>';
+					answerModel += '<div class="answerModel-item" id="answer_model_'+index+'"><div class="logo-view"><img style="position: absolute;top: 13px;left: 0;width: 45%;" src="'+item.iconLogo+'" /></div><div class="answer-text" id="chatView_'+item.id+'" src="'+item.proImg+'">';
+					answerModel += '</div></div>';
+				})
+				$('.model-list').html(modelItem);
+				$('.answerModel-list').html(answerModel);
+				$(".model-list .model-item").click(function() {
+					var index = $(this).index();
+					$('#null_model').text('');
+					if($(this).attr('class').indexOf('active-model') != -1){
+						$(this).removeClass('active-model');
+						$('#answer_model_'+index).css('display','none');
+						$('#answer_model_'+index).removeClass('show-answer-item');
+						selectModels.forEach((sitem,sindex)=>{
+							if($(this).attr('data-id') == sitem){
+								selectModels.splice(sindex,1);
+							}
+						})
+					}else{
+						$(this).addClass('active-model');
+						selectModels.push($(this).attr('data-id'));
+						$('#answer_model_'+index).css('display','block');
+						$('#answer_model_'+index).addClass('show-answer-item');
+					}
+					$('.answerModel-item').css('margin-left','');
+					$('.show-answer-item').eq(0).css('margin-left','0');
+				});
+				$('.model-item-send').click(function(){
+					var parentId = $(this).parent().parent().attr('id');
+					parentId = parentId.slice(parentId.length-1,parentId.length);
+					sendChatOnly(parentId);
+				})
+				$("#add_model").click(function() {
+					$('.model-wrap').removeClass('question-wrap');
+				})
+				$("#clear_answer").click(function() {
+					sendNums = 0;
+					for (let i = 0; i < selectModels.length; i++) {
+						$('#chatView_'+selectModels[i]).html('');
+					}
+				})
+				createXTYSocket();
+			},
+			error: function(res){
+				// 错误时处理逻辑
+			}
+		});
+		$('.send-icon').click(function(){
+			sendChat();
+		})
+    });
+
+	var str2fileFlag=false;//是否开始文字转语音
+    //启动小豚云消息通道
+    async function  createXTYSocket() {
+        restartConnCount--;
+        if(restartConnCount<0){
+            return;
+        }
+        //启动小豚云的websocket连接
+		const socket = new SockJS(pathurl + "/ws", false, null);
+		stompClient = Stomp.over(socket);
+        stompClient.connect({deviceCode: deviceCode}, frame => {
+            stompConnected = true;
+			for (let i = 0; i < models.length; i++){
+				console.log('/user/' + deviceCode + '/chatmessage'+models[i].id+"/"+modelSessionId);
+				// 订阅通道，处理设备信息(单发消息-AI互动信息)
+				stompClient.subscribe('/user/' + deviceCode + '/chatmessage'+models[i].id+"/"+modelSessionId, response => {
+					//let msg = JSON.parse(response.body);
+					let msg=response.body;
+					console.log(models[i].id+'收到服务器消息：', msg);
+					//$("#chatView_"+models[i].id+' .answer-txt').text($("#chatText"+models[i].id).val()?$("#chatText"+models[i].id).val()+msg:msg);
+					$("#chatView_"+models[i].id+' #answer_txt_'+sendNums).html(msg);
+					$('#chatView_'+models[i].id).scrollTop($('#chatView_'+models[i].id).prop('scrollHeight'));
+				});
+			};
+            console.log('小豚云自有消息通道连接成功！');
+        }, error => { // 异常消息
+            stompConnected = false;
+            createXTYSocket();//重新建立连接
+        });
+    }
+
+    function sendChat(){
+    	if(selectModels.length == 0){
+    		$('#null_model').text('请选择模型');
+    		$("#chatText").val('');
+    		return;
+    	}
+    	if(!$("#chatText").val()){
+    		$('#null_model').text('请输入问题');
+    		return;
+    	}
+    	$('#null_model').text('');
+    	$('.model-wrap').addClass('question-wrap');
+    	$('#chatText').attr('rows','3');
+    	sendNums++;
+		for (let i = 0; i < selectModels.length; i++) {
+			var divDom = '';
+			var imgUrl = $('#chatView_'+selectModels[i]).attr('src');
+			divDom += '<div class="quest-block"><i class="quest-header"></i><p id="quest_msg_'+sendNums+'" class="quest-msg"></p></div>';
+			divDom += '<div class="answer-block"><img class="answer-header" src="'+imgUrl+'" /><p id="answer_txt_'+sendNums+'" class="answer-txt"></p></div>';
+			$('#chatView_'+selectModels[i]).append(divDom);
+			sendChatToModel(selectModels[i]);
+		}
+		$("#chatText").val('');
+    }
+    function sendChatOnly(index){
+    	sendChatToModelOnly(models[index].id,index);
+		$("#answer_model_"+index+" .answer-input input").val('');
+    }
+	function sendChatToModel(modelId){
+		let chatText = $("#chatText").val();
+		$('#chatView_'+modelId+' #quest_msg_'+sendNums).text(chatText);
+		/* $('.answer-txt').text(''); */
+		if(chatText==''){
+			return;
+		}
+		$("#chatText"+modelId).val(chatText);
+		$.ajax({
+			url: pathurl+'/answer',
+			method: 'POST',
+			data: {
+				question: chatText,
+				modelSessionId: modelSessionId
+			},
+			success: function(res){
+				if(res.resultCode == 0){
+					$("#chatText"+modelId).val('');
+				}else{
+					alert(res.resultDesc);
+				}
+			},
+			error: function(res){
+				alert("后台异常 请联系管理员");
+			}
+		});
+	}
+	function sendChatToModelOnly(modelId,index){
+		let chatText = $("#answer_model_"+index+" .answer-input input").val();
+		$('answer_model_'+index+' .quest_msg_'+sendNums).text(chatText);
+		if(chatText==''){
+			return;
+		}
+		$.ajax({
+			url: pathurl+'/answer',
+			method: 'POST',
+			data: {
+				question: chatText,
+				modelSessionId: modelSessionId
+			},
+			success: function(res){
+				if(res.resultCode == 0){
+					$("#answer_model_"+index+" .answer-input input").val('');
+				}else{
+					alert(res.resultDesc);
+				}
+			},
+			error: function(res){
+				alert("后台异常 请联系管理员");
+			}
+		});
+	}
+	//屏幕自适应
+	function scleChange(){
+		let targetWidth = 1920;
+		let targetHeight = 1080;
+		let targetRatio = 16 / 9;
+		let currentWidth = window.screen.availWidth;
+		let currentHeight = document.documentElement.clientHeight || document.body.clientHeight;
+		let scaleRatio = currentWidth / targetWidth;
+		let currentRatio = currentWidth / currentHeight;
+		if (currentRatio > targetRatio) {
+		  scaleRatio = currentHeight / targetHeight;
+		  document.body.style = `transform: scale(${scaleRatio}) translateX(-50%); left: 50%;`;
+		} else {
+		  document.body.style = `transform: scale(${scaleRatio})`;
+		}
+	}
+    /*]]>*/
+
+</script>
+</html>

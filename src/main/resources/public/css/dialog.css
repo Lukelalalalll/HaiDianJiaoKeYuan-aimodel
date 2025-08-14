@@ -1,0 +1,562 @@
+#signin-dialog .modal-footer{
+	border-top: none;
+	padding: 0 30px;
+}
+#signin-dialog .modal-body{
+	padding: 30px 0 25px !important;
+}
+#signin-dialog .modal-dialog,#signin-dialog  .modal-content,
+#set-answer-dialog .modal-dialog,#set-answer-dialog  .modal-content
+{
+	width: 556px !important;
+	height: 308px !important;
+}
+#signin-dialog .clock-img{
+	width: 102px;
+	height: 102px;
+	margin: 0 auto;
+	background: url("../images/clock.png");
+	color: #FFf;
+	text-align: center;
+	line-height: 102px;
+}
+#signin-dialog .clock-img span{
+	font-size: 32px;
+}
+.tip-clock{
+	text-align: center;
+	color: #666;
+	font-size: 14px;
+	display: block;
+	margin: 25px 0 0px;
+}
+#signin-dialog .modal-footer .btn{
+	padding: 6p 20px !important;
+}
+
+
+/*发起签到*/
+#sponsor-signin-dialog .modal-dialog,
+#sponsor-signin-dialog  .modal-content,
+#students-signin-dialog  .modal-content,
+#students-signin-dialog  .modal-content,
+#dati-ing-dialog .modal-dialog,
+#dati-ing-dialog  .modal-content
+{
+	width: 556px !important;
+}
+.sign-list{
+	overflow: hidden;
+	padding:20px 0 0 70px;
+	
+}
+.sign-item{
+	width: 56px;
+	height: 56px;
+	display: inherit;
+	float: left;
+	text-align: center;
+	line-height: 56px;
+	color: #fff;
+	cursor: pointer;
+	background: url(../images/sn-clock.png) no-repeat;
+	margin: 0 94px 25px 0;
+}
+.sign-item.active{
+	background: url(../images/s-clock.png) no-repeat;
+}
+.sign-item span{
+	font-size: 18px;
+}
+/*已签到学生*/
+#students-signin-dialog .modal-body table{
+	margin-bottom: 0;
+}
+#students-signin-dialog .modal-body{
+	max-height: 400px;
+	overflow-y: auto;
+}
+#students-signin-dialog .modal-content .modal-footer,
+#set-answer-dialog .modal-content .modal-footer
+{
+	border-top: none;
+	padding-top: 0px;
+}
+
+
+
+ .jd-box {
+        height: 285px;
+        color: #666666;
+        overflow-y: auto;
+    }
+
+    .green-txt-percent {
+        color: #3EB56B;
+    }
+	#dati-ing-dialog .modal-body{
+	padding: 0 15px 0 30px !important;
+	}
+
+    .green-bg {
+        background-color: #3EB56B;
+    }
+
+    .jd-title {
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .title-name {
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .title-content {
+        font-size: 18px;
+        vertical-align: middle;
+        padding-right: 60px;
+    }
+
+    .jd-content {
+        margin-top: 20px;
+    }
+
+    .jd-line {
+        height: 20px;
+        margin-bottom: 20px;
+    }
+
+    .jd-line > * {
+        float: left;
+    }
+
+    .jd-line-name {
+        width: 5%;
+        box-sizing: border-box;
+    }
+
+    .jd-sm-line {
+        width: 75%;
+        height: 8px;
+        margin-top: 6px;
+        border-radius: 3px;
+        background: #E2E7EE;
+    }
+
+    .jd-sm-line div {
+        height: 8px;
+        border-radius: 3px;
+    }
+
+    .jd-desc {
+        width: 10%;
+        text-align: center;
+    }
+
+    .jd-bottom-line1 {
+        padding-top: 10px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .jd-bottom-line1 span {
+        vertical-align: middle;
+    }
+
+    .jd-bottom-num {
+        font-size: 18px;
+    }
+
+    .jd-bottom-line2 {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .modal-title-icon {
+        color: #F58410;
+        background-image: url("../images/gicon.png");
+        background-size: 100% 100%;
+        padding: 4px;
+        padding-right: 6px;
+        font-size: 14px;
+        font-weight: 300;
+        margin-left: 10px;
+    }
+
+    .modal-title span {
+        vertical-align: middle;
+    }
+	/*发起答题*/
+	#set-answerModal .modal-body{
+		padding: 15px 30px !important;
+	}
+    .ti-title{
+        color: #666;
+        padding: 5px 0 3px 0;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .ti-btn{
+        width: 20%;
+        margin-right: 5%;
+        float: left;
+        text-align: center;
+        height: 25px;
+        border: 2px solid #03A9F4;
+        color: #03A9F4;
+        border-radius: 4px;
+        margin-top: 10px;
+		cursor: pointer;
+    }
+    .ti-btn-active{
+        background: #03A9F4;
+        color: white;
+    }
+    .ti-btn:nth-child(4n){
+        margin-right: 0;
+    }
+    .ti-tip{
+        clear: both;
+        padding-top: 20px;
+        color: #F84545;
+        font-size: 12px;
+    }
+    .set-ti-box{
+        font-size: 0;
+        margin-top: 20px;
+    }
+    .set-ti-box>div{
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .set-title{
+        width: 74px;
+        color: #666;
+        font-size: 14px;
+    }
+    .set-btn{
+        width: 50px;
+        height: 25px;
+        font-size: 14px;
+        line-height: 21px;
+        border-radius: 4px;
+        border: 2px solid #03A9F4;
+        color: #03A9F4;
+        text-align: center;
+        margin-right: 10px;
+		cursor: pointer;
+    }
+    .set-btn-active{
+        color: white;
+        background: #03A9F4;
+    }
+	/* 课件弹窗 */
+	ul{
+		list-style-type: none;
+	}
+	#openfileModal .modal-body{
+		margin:0 auto;
+		width:95%;
+		height: 400px;
+		overflow-y: auto;
+	}
+	.file-search .form-control{
+		width: 85%;
+		display: inline-block;
+	}
+	.file-search .btn-default,.file-search .btn-default:hover{
+		color:#03A9F4;
+		border-color:#03A9F4;
+		background-color: #fff !important;
+		float: right;
+	}
+	.f-name{
+		color: #7F8FA4;
+		padding-left: 7px;
+		cursor: pointer;
+	}
+	.f-name:hover{
+		color: #03A9F4;
+	}
+	.file-list{
+		margin-top: 20px;
+	}
+	#f-pull{
+		padding: 2px;
+	}
+	.l-next{
+		padding-left: 28px;
+	}
+	.l-next li{
+		padding-top: 10px;
+	}
+	.all-file{
+		height: 20px;
+		margin-top: 15px;
+	}
+	.file-img{
+		padding-left: 18px;
+	}
+	.ft-close{
+		color:#354052 !important;
+		border-color:#DCDFE6;
+		background-color:#fff !important;
+	}
+	/*学生端选择*/
+	#chooseModal .modal-dialog,
+	#chooseModal  .modal-content
+	{
+		width: 236px !important;
+	}
+	
+	
+	/*学生端检测设备*/
+	#check-equipment-step1 .modal-dialog,
+	#check-equipment-step1  .modal-content,
+	#check-equipment-step2 .modal-dialog,
+	#check-equipment-step2  .modal-content,
+	#check-equipment-step3 .modal-dialog,
+	#check-equipment-step3  .modal-content,
+	#elDeviceChkCamera .modal-dialog,
+	#elDeviceChkCamera .modal-content,
+	#elDeviceChkMicrophone .modal-dialog,
+	#elDeviceChkMicrophone .modal-content,
+	#elDeviceChkSpeaker .modal-dialog,
+	#elDeviceChkSpeaker .modal-content
+	
+	{
+		width: 650px !important;
+	}
+	.check-steps{
+		padding-left: 10px;
+		overflow: hidden;
+		margin: 5px 0 20px 0;
+	}
+	.checkout-step-item{
+		line-height: 28px;
+		height: 28px;
+		font-size: 14px;
+		color: #909399;
+	}
+	.checkout-step-active,.checkout-step-finish{
+		color: #03A9F4;
+	}
+	.checkout-step-active .check-num{
+		border: 1px solid #03A9F4;
+		background: #03A9F4;
+		color: #fff;
+	}
+	.checkout-step-finish .check-num{
+		border: 1px solid #03A9F4;		
+		color: #03A9F4;
+	}
+	.checkout-step-active .check-line,
+	.checkout-step-finish .check-line
+	{
+		border-top: 1px solid #03A9F4;
+	}
+	
+	.check-num{
+		width:28px;
+		height:28px;
+		display: block;
+		border-radius:50%;
+		border: 1px solid #909399;
+		color: #909399;
+		text-align: center;
+		box-sizing: border-box;
+		line-height: 26px;		
+	}
+	.check-des{
+		padding-left: 10px;		
+	}
+	.check-line{
+		width: 95px;
+		height: 1px;
+		display: block;
+		border-top: 1px solid #909399;
+		margin: 13px 10px 0 10px;				
+	}
+	.sxt-select{
+		width: 300px;
+		margin: 0 auto 10px;
+	}
+	.equipment-zone{
+		width: 300px;
+		height: 200px;
+		margin: 0 auto;
+		border: 1px solid #03A9F4;
+	}	
+	.equipment-zone-success video{
+		width: 100%;
+		height: 100%;
+	}
+	.equipment-zone-fail{
+		background: #CDEEFD;
+	}
+	.equipment-zone-fail img{
+		display: block;
+		margin: 60px auto;
+	}
+	.check-result{
+		height: 32px;
+		margin-top: 10px;
+		line-height: 32px;
+		text-align: center;
+		min-width: 300px;
+		font-size: 0;
+	}
+	.check-result-success,.check-result-mic{
+		color: #30A558;		
+	}
+	.check-result-fail{
+		color: #F2710C;		
+	}
+	.check-result span,.check-result em{
+		display: inline-block;
+		vertical-align: middle;
+		font-style: normal;
+		font-size: 14px;
+	}
+	.check-result span{
+		width: 32px;
+		height: 32px;
+		margin-right: 10px;
+		display: inline-block;
+	}
+	.check-result-success span,.check-result-mic span{				
+		background: url(../images/shebei-success.png);			
+	}
+	.check-result-fail span{						
+		background: url(../images/shebei-fail.png);		
+	}
+	#check-equipment-step1 .modal-footer,
+	#check-equipment-step2 .modal-footer,
+	#check-equipment-step3 .modal-footer,
+	#elDeviceChkCamera .modal-footer,
+	#elDeviceChkMicrophone .modal-footer,
+	#elDeviceChkSpeaker .modal-footer
+	{
+		border-top: none;
+		padding: 0 15px 10px 0;
+	    margin-top: -5px;
+	}
+	.mic-check{
+		margin: 30px 0 20px;
+		text-align: center;
+		color: #F84545;
+		font-size: 14px;
+	}
+	.mic-voice-box{
+		font-size: 0;
+		text-align: center;
+	}
+	.luyin-btn{
+		   display: inline-block;
+		    font-size: 12px;
+		    width: 40px;		
+			margin-right: 20px;
+			cursor: pointer;
+	}
+	.luyin-btn em{
+			font-style: normal;
+			color: #03A9F4;
+	}
+	.mic-voice-box i{
+		width:12px;
+		height:50px;
+		background:rgba(205,238,253,1);
+		border-radius: 8px;
+		display: inline-block;
+		margin-right: 12px;
+	}
+	.mic-voice-box i.active{
+		background: #03A9F4;
+	}
+	.mic-voice-box i:last-of-type{
+		margin-right: 0;
+	}
+	.check-result-mic-height{
+		margin-top: 30px;
+		height: 32px
+	}
+	
+	.btn-size-70{
+		padding: 6px 19px !important;
+	}
+	
+	.speaker-check{
+		margin: 25px 0 15px;
+		text-align: center;
+		color: #03A9F4;
+		font-size: 14px;
+	}
+	.speaker-box{
+		width: 440px;
+		height: 90px;
+		margin: 0 auto 25px;
+		border-radius:10px;
+		background:rgba(205,238,253,1);
+		padding: 0 21px;
+		font-size:0;
+		position: relative;
+	}
+	.speaker-box i{
+		display: inline-block;
+		width: 8px;
+		height: 40px;
+		border-top: 2px solid #fff;
+		position: absolute;
+		bottom: 0;
+		background: #03A9F4;
+	
+	}	
+	#check-equipment-step3 .btn-ok{
+		background: #3EB56B;
+		border-color: #3EB56B;
+		color: #fff;
+	}
+	#check-equipment-step3 .btn-no{
+		background: #F2710C;
+		border-color: #F2710C;
+		color: #fff;
+	}
+
+	/*轮训设置*/
+	#RoundRobinSet .modal-dialog{
+		width: 556px;
+	}
+	#RoundRobinSet .set-box{
+		font-size: 14px;
+		font-weight: 600;
+		color: #666666;
+	}
+	#RoundRobinSet .set-box input{
+		width: 40px;
+		height: 40px;
+		border: none;
+		border-radius: 4px;
+		border: 1px solid #ccccff;
+		outline: 0;
+		margin: 0 6px;
+		text-align: center;
+	}
+	#RoundRobinSet .modal-body{
+		padding:10px 0 0 30px;
+		
+	}
+	#RoundRobinSet .modal-footer{
+		border-top: 0;
+		padding: 10px 30px;
+    }
+	#RoundRobinSet .tip{
+		font-size: 12px;
+		color: #ff3333;
+		margin-top: 20px;
+	}
+	#RoundRobinSet .btn-round-robin-set{
+		background: #fff;
+		border: 1px solid #ccccff;
+	}

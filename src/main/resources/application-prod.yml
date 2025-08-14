@@ -1,0 +1,49 @@
+server:
+  port: 8920
+  servlet:
+    context-path: /aimodel
+    session:
+      cookie:
+        name: AIMODEL-DEV-SESSION
+  tomcat:
+    threads:
+      max: 20
+# 日志配置
+logging:
+  level:
+    #不同目录下的日志可配置不同级别
+    org.springfromework.web: INFO
+    org.hibernate: ERROR
+spring:
+  datasource: 
+    url: jdbc:mysql://10.10.3.19:3306/aimodel?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: 83f36dec
+    password: 83f36dec
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: 10.10.3.19
+    port: 15067
+    lettuce:
+      pool:
+        max-idle: 20
+        min-idle: 5
+        max-active: 30
+        max-wait: 3000
+  thymeleaf:
+    cache: false
+security:
+  oauth2:
+    client:
+      client-id: aimodel
+      client-secret: 3a6ddb0ebc36441398a00a20fb64af17
+      access-token-uri: http://cloud.20ytschool.com/schoolcloud-oauthserver/oauth/token
+      user-authorization-uri: https://cloud.20ytschool.com/schoolcloud-oauthserver/oauth/authorize
+      client-authentication-scheme: header
+    resource:
+      user-info-uri: http://cloud.20ytschool.com/schoolcloud-oauthserver/api/userinfo
+  #swgger配置
+sys:
+   swagger:
+      #swgger启用标识  true启用 false不启用
+      enable-swgger: false
+   netname: http://192.168.100.238

@@ -1,0 +1,301 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+}
+body{
+	width: 1920px;
+	height: 1080px;
+	position: relative;
+	/* 设置缩放原点 */
+	transform-origin: left top;
+	box-sizing: border-box;
+	overflow: hidden;
+	font-family: Microsoft YaHei;
+}
+.daping-wrap{
+	width: 100%;
+	height: 100%;
+	background-image: url(../images/daping-bg.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	overflow: hidden;
+}
+.scroller-nav{
+	width: 100%;
+	position: relative;
+}
+.header-block{
+	height: 52px;
+	line-height: 52px;
+	padding: 30px 45px 10px;
+}
+.header-block img{
+	width: 528px;
+	height: 66px;
+}
+.header-block p{
+	display: inline-block;
+	height: 52px;
+	vertical-align: top;
+	float: right;
+	font-size: 38px;
+	font-weight: 400;
+	color: #FFFFFF;
+}
+.content-primary{
+	margin: 0 auto;
+	display: flex;
+	position: relative;
+	bottom: -196px;
+	justify-content: center;
+}
+.right-sub .nav-text{
+	font-size: 30px;
+	font-weight: 400;
+	margin-bottom: 28px;
+	margin-left: 15px;
+	color: #FFFFFF;
+}
+.renwu-region{
+	width: 608px;
+	height: 790px;
+}
+.renwu-region img{
+	width: 608px;
+	height: 791px;
+}
+.message-box{
+	width: 463px;
+	height: 409px;
+	border: 2px solid rgba(70,118,128,0.38);
+	background: rgba(255,255,255,0.5);
+	border-radius: 20px;
+	padding: 40px 35px;
+	padding-top: 25px;
+	position: relative;
+	left: -15px;
+	z-index: 10;
+}
+#chatView{
+    overflow: auto;
+    height: calc(100% - 60px);
+    cursor: pointer;
+}
+#chatView::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 6px;
+}
+
+#chatView::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+.message-box span{
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 44px solid transparent;
+	border-right: 42px solid rgba(70,118,128,0.18);
+	border-bottom: 4px solid transparent;
+	border-left: 16px solid transparent;
+	position: absolute;
+	left: -58px;
+	top: 40px;
+}
+.message-box span::after {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 40px solid transparent;
+	border-right: 40px solid rgba(177,227,236,1);
+	border-bottom: 2px solid transparent;
+	border-left: 14px solid transparent;
+	position: absolute;
+	right: -44px;
+	top: -42px;
+	z-index: 3;
+}
+.message-box p{
+	font-size: 30px;
+	font-weight: 500;
+	line-height: 56px;
+}
+.message-box .bottom-text{
+	width: 100%;
+	position: absolute;
+	bottom: 40px;
+	color: #00B1A9;
+	font-size: 30px;
+}
+.barrage_box{
+	border: 2px solid rgba(0,131,53,0.3);
+}
+.direction-block{
+	width: 503px;
+	height: 394px;
+	border: 2px solid rgba(70,118,128,0.38);
+	background: rgba(255,255,255,0.5);
+	border-radius: 20px;
+	padding: 40px 35px;
+	padding-right: 15px;
+	position: relative;
+	top: 70px;
+	left: -15px;
+	margin-left: 56px;
+	margin-right: 76px;
+}
+.direction-bottom{
+	display: flex;
+	margin: 30px 0;
+	align-items: center;
+}
+.direction-block .top-text{
+	font-size: 30px;
+	margin-bottom: 10px;
+	color: #FB7616;
+}
+.direction-block .destination-text{
+	font-size: 30px;
+	line-height: 56px;
+}
+.direction-block .location-text{
+	font-size: 30px;
+	line-height: 56px;
+}
+.direction-bottom p{
+	font-size: 36px;
+	color: #FF6D01;
+	height: 100%;
+}
+.direction-bottom img{
+	width: 227px;
+}
+.arrow-box{
+	flex: 1;
+	text-align: right;
+}
+.dm-img{
+	position: absolute;
+}
+.praise-box{
+	position: absolute;
+	width: 312px;
+	height: 255px;
+}
+.photo-region{
+	position: absolute;
+	top: 4px;
+	left: calc(50% - 101px);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 202px;
+	width: 196px;
+	z-index: 9;
+	text-align: center;
+}
+.photo-region img{
+	border-radius: 50%;
+	margin-top: 30px;
+	height: 143px;
+	width: 143px;
+}
+.illustrate-region{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 292px;
+	height: 61px;
+	border-radius: 8px;
+	padding: 18px 10px 8px;
+	z-index: 1;
+}
+.illustrate-region .content-text{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	border-radius: 8px;
+}
+.illustrate-region .content-text p{
+	text-align: center;
+	color: #141414;
+	line-height: 45px;
+	font-size: 22px;
+	margin: 0;
+	padding-top: 12px;
+}
+.first-praise .illustrate-region{
+	background: #F4A582;
+}
+.first-praise .photo-region{
+	background-image: url(../images/flower3.png);
+}
+.second-praise .illustrate-region{
+	background: #00B1A9;
+}
+.second-praise .photo-region{
+	background-image: url(../images/flower1.png);
+}
+.thrid-praise .illustrate-region{
+	background: #FCC800;
+}
+.thrid-praise .photo-region{
+	background-image: url(../images/flower2.png);
+}
+.fourth-praise .illustrate-region{
+	background: #009A5B;
+}
+.fourth-praise .photo-region{
+	background-image: url(../images/flower4.png);
+}
+#chatText{
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    outline: none;
+    padding: 0 15px;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: calc(100% - 175px);
+}
+.wz-button{
+	display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid #dcdfe6;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #00B1A9;
+    border-color: #00B1A9;
+}
+#area{
+	width: 100%;
+	height: 0px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 5;
+}

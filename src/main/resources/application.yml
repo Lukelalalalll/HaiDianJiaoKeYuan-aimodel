@@ -1,0 +1,89 @@
+# 应用信息
+app:
+  name: aimodel
+  description: aimodel
+  version: 1.0
+server:
+  servlet:
+    context-path: /aimodel
+    session:
+      timeout: 3600
+  tomcat:
+    uri-encoding: UTF-8
+    use-forward-headers: true
+    remoteip:
+      protocol-header: x-forwarded-proto
+      remote-ip-header: x-forwarded-for
+timer:
+  rate: 500000000
+  editShuziren: "0 0/1 * * * ?"
+  editShuzirenXingxiang: "0 0/1 * * * ?"
+  editShuzirenPpt: "0/20 * * * * ?"
+  microCourseVideoConcatenation: "0/30 * * * * ?"
+  
+# 日志配置
+logging:
+  file:
+    name: aimodel.log
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      # 上传文件大小限制，默认1Mb，－1表示不限制，Action中使用@RequestParam("file") MultipartFile file
+      max-file-size: -1
+      max-request-size: -1
+  profiles:
+    #默认启用开发环境配置
+    active: dev,sql
+  #数据库连接池配置
+  datasource: 
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 初始化大小，最小，最大
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 60000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 5
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙 
+      filters: stat,wall,log4j
+      #属性来打开mergeSql功能；慢SQL记录
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      validation-query: SELECT 1
+      #下面配置说明请参考Druid Github Wiki，配置_配置WebStatFilter
+      web-stat-filter:
+          exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      #下面配置说明请参考Druid Github Wiki，配置_StatViewServlet配置
+      stat-view-servlet:
+          login-username: druid
+          login-password: zklc#2020
+          enabled: true
+  jpa:
+    show-sql: false
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+hibernate:
+  dialect: org.hibernate.dialect.MySQLDialect
+uploadfiledir:
+  # 上传文件大小限制
+  maxFileSize: 50MB
+  #图片
+  uploadFilePath: C:/webapp/files/aimodel/
+  uploadFileUrl: http://127.0.0.1:8920/aimodel/busFiles
+sys:
+  scheduleServiceFlag: true
